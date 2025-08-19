@@ -130,12 +130,16 @@ map_choro <- ggplot() +
           color = "white", alpha = 1, show.legend = T) +
   geom_sf(data = boundary_shp2, fill = NA, alpha = 0.3, colour = "red") +
   scale_fill_manual(name = "Yield (MCM)", values = col_class) +
+  geom_sf_text(data = yield_data_shp, 							# label choropleth
+               nudge_x = -0.1, nudge_y = -0.1, size = 5,
+               aes(label = round(Yield, digits = 0))) +
   coord_sf(xlim = c(101.2, 102), ylim = c(2.7, 3.4)) +
   theme_void() +
   theme(plot.title = element_text(family = "sans", 
                                   size = 15, hjust = 0.45, vjust = 2),
-        legend.title = element_text(size = 10), 
-        plot.caption = element_text(size = 8, color = "grey50", hjust = 0),
+        legend.title = element_text(size = 11, face = "bold"), 
+        text = element_text(size = 10),  #legend label
+        #plot.caption = element_text(size = 15, color = "grey50", hjust = 0),
         plot.margin = margin(r = 10, l = 10),
         legend.position = "bottom") +
   annotate("text", x = 111, y = 6.5, size = 4,
@@ -183,6 +187,9 @@ for (m in 1:nrow(df_date)) {
             color = "white", alpha = 1, show.legend = T) +
     geom_sf(data = boundary_shp2, fill = NA, alpha = 0.3, colour = "black") +
     scale_fill_manual(name = "Yield", values = col_class) +
+    #geom_sf_text(data = yield_data_shp_sel,  							# label choropleth
+    #             nudge_x = -0.1, nudge_y = -0.15, size = 2.5,
+    #             aes(label = round(Yield, digits = 0))) +
     coord_sf(xlim = c(101.2, 102), ylim = c(2.7, 3.4)) +
     theme_void() +
     theme(plot.title = element_text(family = "sans", 
@@ -242,11 +249,11 @@ facet_legend_map_cl <- grid.arrange(facet_map_cl, mylegend_cl,
 
 #### print last plot to file
 ## widescreen
-ggsave(paste0(reg_name_short, "_yield2_ws.jpg"), facet_legend_map_cl, dpi = 400,
+ggsave(paste0(reg_name_short, "_yield3_ws.jpg"), facet_legend_map_cl, dpi = 400,
        width = 20, height = 11.25, units = "in")
 
 ## A3
-ggsave(paste0(reg_name_short, "_yield2_a3.jpg"), facet_legend_map_cl, dpi = 400,
+ggsave(paste0(reg_name_short, "_yield3_a3.jpg"), facet_legend_map_cl, dpi = 400,
        width = 20, height = 14.19, units = "in")
 
 
